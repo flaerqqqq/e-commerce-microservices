@@ -26,6 +26,6 @@ public class CustomerController {
                                                       @PathVariable Long id) {
         CustomerDto requestDto = customerMapper.toDto(request);
         CustomerDto responseDto = customerService.update(id, requestDto);
-        return new ResponseEntity<>(customerMapper.toResponse(responseDto), HttpStatus.OK);
+        return new ResponseEntity<>(customerMapper.toResponse(responseDto), HttpStatus.ACCEPTED);
     }
 }

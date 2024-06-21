@@ -4,10 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -18,9 +15,17 @@ public class CustomerController {
     private final CustomerMapper customerMapper;
 
     @PostMapping
-    public ResponseEntity<RegisterResponseDto> register(@RequestBody @Valid RegisterRequestDto request){
+    public ResponseEntity<CustomerResponseDto> register(@RequestBody @Valid RegisterRequestDto request) {
         CustomerDto requestDto = customerMapper.toDto(request);
         CustomerDto responseDto = customerService.register(requestDto);
-        return new ResponseEntity<>(customerMapper.toRegisterResponseDto(requestDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(customerMapper.toResponse(responseDto), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerResponseDto> update(@RequestBody @Valid CustomerUpdateRequest request,
+                                                      @PathVariable Long id) {
+        CustomerDto requestDto = customerMapper.toDto(request);
+        CustomerDto responseDto = customerService.update(id, requestDto);
+        return new ResponseEntity<>(customerMapper.toResponse(responseDto), HttpStatus.OK);
     }
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CustomerResponseDto {
 
-    private String id;
+    private Long id;
 
     private String firstName;
 

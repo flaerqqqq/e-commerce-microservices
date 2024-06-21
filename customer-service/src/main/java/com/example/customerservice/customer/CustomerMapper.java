@@ -10,7 +10,9 @@ public interface CustomerMapper {
 
     CustomerDto toDto(Customer customer);
 
-    RegisterResponseDto toRegisterResponseDto(CustomerDto customerDto);
+    CustomerDto toDto(CustomerUpdateRequest request);
+
+    CustomerResponseDto toResponse(CustomerDto customerDto);
 
     Customer fromDto(CustomerDto customerDto);
 }

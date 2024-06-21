@@ -2,6 +2,8 @@ package com.example.customerservice.customer;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +29,15 @@ public class CustomerController {
         CustomerDto requestDto = customerMapper.toDto(request);
         CustomerDto responseDto = customerService.update(id, requestDto);
         return new ResponseEntity<>(customerMapper.toResponse(responseDto), HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> findAll(Pageable pageable){
+        Page<CustomerResponseDto> pageOfCustomers = customerService.findAll(pageable)
+                .map(customerMapper::toResponse);
+        if (pageOfCustomers.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(pageOfCustomers, HttpStatus.OK);
     }
 }

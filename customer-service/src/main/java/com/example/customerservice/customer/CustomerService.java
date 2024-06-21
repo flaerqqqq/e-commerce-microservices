@@ -1,6 +1,8 @@
 package com.example.customerservice.customer;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,5 +36,10 @@ public class CustomerService {
         Customer updatedCustomer = customerRepository.save(customer);
 
         return customerMapper.toDto(updatedCustomer);
+    }
+
+    public Page<CustomerDto> findAll(Pageable pageable){
+        return customerRepository.findAll(pageable)
+                .map(customerMapper::toDto);
     }
 }

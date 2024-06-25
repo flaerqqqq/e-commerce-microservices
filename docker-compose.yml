@@ -14,7 +14,7 @@ services:
       - microservices-net
     restart: unless-stopped
 
-  mongobd:
+  mongodb:
     container_name: ms_mongo_db
     image: mongo
     ports:
@@ -22,8 +22,8 @@ services:
     volumes:
       - mongo:/data
     environment:
-      MONGO_INITDB_ROOT_USERNAME: vitaliy
-      MONGO_INITDB_ROOT_PASSWORD: 452389
+      MONGO_INITDB_ROOT_USERNAME: "vitaliy"
+      MONGO_INITDB_ROOT_PASSWORD: "452389"
   mail_dev:
     container_name: ms_mail_dev
     image: maildev/maildev

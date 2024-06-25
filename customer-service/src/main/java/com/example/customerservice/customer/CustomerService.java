@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -18,14 +20,16 @@ public class CustomerService {
             throw new EmailAlreadyUsedException("Email already in use: %s".formatted(customerDto.getEmail()));
         }
 
-        Customer customer = customerMapper.fromDto(customerDto);
+        String uuid = UUID.randomUUID().toString();
+        customerDto.setId(uuid);
 
+        Customer customer = customerMapper.fromDto(customerDto);
         Customer savedCustomer = customerRepository.save(customer);
 
         return customerMapper.toDto(savedCustomer);
     }
 
-    public CustomerDto update(Long id, CustomerDto customerDto) {
+    public CustomerDto update(String id, CustomerDto customerDto) {
         if (!customerRepository.existsById(id)) {
             throw new CustomerNotFoundException("Customer with id is not found: %s".formatted(id));
         }
@@ -43,7 +47,7 @@ public class CustomerService {
                 .map(customerMapper::toDto);
     }
 
-    public CustomerDto findById(Long id){
+    public CustomerDto findById(String id){
         Customer customer = customerRepository.findById(id).orElseThrow(() ->
                 new CustomerNotFoundException("Customer with id is not found: %s".formatted(id)));
 

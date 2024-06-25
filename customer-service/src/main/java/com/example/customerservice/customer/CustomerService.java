@@ -25,9 +25,9 @@ public class CustomerService {
         return customerMapper.toDto(savedCustomer);
     }
 
-    public CustomerDto update(Long id, CustomerDto customerDto) {
+    public CustomerDto update(String id, CustomerDto customerDto) {
         if (!customerRepository.existsById(id)) {
-            throw new CustomerNotFoundException("Customer with id is not found: %d".formatted(id));
+            throw new CustomerNotFoundException("Customer with id is not found: %s".formatted(id));
         }
 
         customerDto.setId(id);
@@ -41,5 +41,12 @@ public class CustomerService {
     public Page<CustomerDto> findAll(Pageable pageable){
         return customerRepository.findAll(pageable)
                 .map(customerMapper::toDto);
+    }
+
+    public CustomerDto findById(String id){
+        Customer customer = customerRepository.findById(id).orElseThrow(() ->
+                new CustomerNotFoundException("Customer with id is not found: %s".formatted(id)));
+
+        return customerMapper.toDto(customer);
     }
 }

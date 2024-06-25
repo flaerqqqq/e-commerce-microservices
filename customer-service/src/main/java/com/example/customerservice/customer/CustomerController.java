@@ -25,7 +25,7 @@ public class CustomerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerResponseDto> update(@RequestBody @Valid CustomerUpdateRequest request,
-                                                      @PathVariable Long id) {
+                                                      @PathVariable String id) {
         CustomerDto requestDto = customerMapper.toDto(request);
         CustomerDto responseDto = customerService.update(id, requestDto);
         return new ResponseEntity<>(customerMapper.toResponse(responseDto), HttpStatus.ACCEPTED);
@@ -40,4 +40,11 @@ public class CustomerController {
         }
         return new ResponseEntity<>(pageOfCustomers, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponseDto> findById(@PathVariable String id) {
+        CustomerDto customer = customerService.findById(id);
+        return new ResponseEntity<>(customerMapper.toResponse(customer), HttpStatus.OK);
+    }
+
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CustomerDto {
 
-    private Long id;
+    private String id;
 
     private String firstName;
 

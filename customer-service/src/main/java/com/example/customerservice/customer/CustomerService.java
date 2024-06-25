@@ -1,5 +1,7 @@
 package com.example.customerservice.customer;
 
+import com.example.customerservice.exception.CustomerNotFoundException;
+import com.example.customerservice.exception.EmailAlreadyUsedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,5 +54,12 @@ public class CustomerService {
                 new CustomerNotFoundException("Customer with id is not found: %s".formatted(id)));
 
         return customerMapper.toDto(customer);
+    }
+
+    public void delete(String id){
+        Customer customer = customerRepository.findById(id).orElseThrow(() ->
+                new CustomerNotFoundException("Customer with id is not found: %s".formatted(id)));
+
+        customerRepository.delete(customer);
     }
 }

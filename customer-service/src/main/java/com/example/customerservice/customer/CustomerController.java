@@ -47,4 +47,9 @@ public class CustomerController {
         return new ResponseEntity<>(customerMapper.toResponse(customer), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id){
+        customerService.delete(id);
+    }
 }

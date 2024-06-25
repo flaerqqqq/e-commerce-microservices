@@ -1,4 +1,4 @@
-package com.example.customerservice.customer;
+package com.example.customerservice.exception;
 
 public class EmailAlreadyUsedException extends RuntimeException {
     public EmailAlreadyUsedException(String msg){

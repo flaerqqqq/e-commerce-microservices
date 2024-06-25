@@ -25,7 +25,7 @@ public class CustomerService {
         return customerMapper.toDto(savedCustomer);
     }
 
-    public CustomerDto update(String id, CustomerDto customerDto) {
+    public CustomerDto update(Long id, CustomerDto customerDto) {
         if (!customerRepository.existsById(id)) {
             throw new CustomerNotFoundException("Customer with id is not found: %s".formatted(id));
         }
@@ -43,7 +43,7 @@ public class CustomerService {
                 .map(customerMapper::toDto);
     }
 
-    public CustomerDto findById(String id){
+    public CustomerDto findById(Long id){
         Customer customer = customerRepository.findById(id).orElseThrow(() ->
                 new CustomerNotFoundException("Customer with id is not found: %s".formatted(id)));
 

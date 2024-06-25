@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Customer {
 
     @Id
-    private String id;
+    private Long id;
 
     private String firstName;
 

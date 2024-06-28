@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: "jdbc:postgresql://localhost:5432/postgres"
+    url: "jdbc:postgresql://localhost:5432/order"
     username: postgres
     password: 452389
     driver-class-name: org.postgresql.Driver
@@ -11,5 +11,12 @@ spring:
     baseline-description: "init"
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
+
 server:
   port: 0
+
+application:
+  config:
+    customer-url: http://localhost:8181/api/v1/customers
+    product-url: http://localhost:8181/api/v1/products
+    payment-url: http://localhost:8181/api/v1/payments
